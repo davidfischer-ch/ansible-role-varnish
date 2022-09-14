@@ -17,21 +17,21 @@
       copy:
         content: '{{ varnish_secret }}'
         dest: /etc/varnish/secret
-        mode: 0644
+        mode: '644'
       notify: restart varnish
 
     - name: Configure Varnish service
       template:
         src: '{{ varnish_config_file }}'
         dest: /etc/default/varnish
-        mode: 0644
+        mode: '644'
       notify: restart varnish
 
     - name: Configure Varnish service on SystemD
       template:
         src: '{{ varnish_service_file }}'
         dest: /etc/systemd/system/varnish.service
-        mode: 0644
+        mode: '644'
       notify:
         - reload systemd
         - restart varnish
@@ -41,7 +41,7 @@
       template:
         src: '{{ varnish_default_vcl_config_file }}'
         dest: /etc/varnish/default.vcl
-        mode: 0644
+        mode: '644'
       notify: restart varnish
   become: yes
   tags: [varnish, config]
